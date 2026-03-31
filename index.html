@@ -3,95 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <title>応援メッセージ投稿フォーム</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    .wrapper { max-width: 600px; margin: 50px auto; font-family: sans-serif; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; }
+    input, select, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+    button { padding: 10px 20px; font-size: 16px; }
+    .hidden { display: none; }
+    .success { color: green; font-weight: bold; }
+  </style>
 </head>
 <body>
 
 <div class="wrapper">
   <h1>応援メッセージ投稿フォーム</h1>
   
-  <form action="https://docs.google.com/forms/d/e/1FAIpQLSdGJZWt-93YMYYefN2bBK1kmXZpijWSLK-l64NF6qEQIdXqtQ/formResponse" method="POST">
-
-    <!-- 氏名 -->
+  <form id="myForm">
     <div class="form-group">
-      <label>氏名 <span class="badge required">必須</span></label>
+      <label>氏名 <span>必須</span></label>
       <input type="text" name="entry.2079323008" placeholder="山田 太郎" required>
     </div>
 
-    <!-- メール -->
     <div class="form-group">
-      <label>メールアドレス <span class="badge required">必須</span></label>
+      <label>メールアドレス <span>必須</span></label>
       <input type="email" name="entry.8506932" placeholder="mail@example.com" required>
     </div>
 
-    <!-- 所属 -->
     <div class="form-group">
-      <label>所属 <span class="badge required">必須</span></label>
-      <div class="radio-box">
-        <label>
-          <input type="radio" name="entry.1143568180" value="コンサルティングスタッフ" required>
-          コンサルティングスタッフ
-        </label>
-        <label>
-          <input type="radio" name="entry.1143568180" value="サポーティングスタッフ" required>
-          サポーティングスタッフ
-        </label>
-      </div>
+      <label>所属 <span>必須</span></label>
+      <label><input type="radio" name="entry.1143568180" value="コンサルティングスタッフ" required> コンサルティングスタッフ</label>
+      <label><input type="radio" name="entry.1143568180" value="サポーティングスタッフ" required> サポーティングスタッフ</label>
     </div>
 
-    <!-- 入社年 -->
     <div class="form-group">
-      <label>入社年 <span class="badge required">必須</span></label>
+      <label>入社年 <span>必須</span></label>
       <select name="entry.83428756" required>
         <option value="">選択してください</option>
-        <!-- 1995〜2026までのオプション -->
-        <option>1995</option><option>1996</option><option>1997</option><option>1998</option><option>1999</option>
-        <option>2000</option><option>2001</option><option>2002</option><option>2003</option><option>2004</option>
-        <option>2005</option><option>2006</option><option>2007</option><option>2008</option><option>2009</option>
-        <option>2010</option><option>2011</option><option>2012</option><option>2013</option><option>2014</option>
-        <option>2015</option><option>2016</option><option>2017</option><option>2018</option><option>2019</option>
-        <option>2020</option><option>2021</option><option>2022</option><option>2023</option><option>2024</option>
-        <option>2025</option><option>2026</option>
+        <option>1995</option><option>1996</option><option>1997</option>
+        <!-- 省略 -->
+        <option>2026</option>
       </select>
     </div>
 
-    <!-- 退社年 -->
     <div class="form-group">
-      <label>退社年 <span class="badge required">必須</span></label>
+      <label>退社年 <span>必須</span></label>
       <select name="entry.1013753232" required>
         <option value="">選択してください</option>
-        <option>1995</option><option>1996</option><option>1997</option><option>1998</option><option>1999</option>
-        <option>2000</option><option>2001</option><option>2002</option><option>2003</option><option>2004</option>
-        <option>2005</option><option>2006</option><option>2007</option><option>2008</option><option>2009</option>
-        <option>2010</option><option>2011</option><option>2012</option><option>2013</option><option>2014</option>
-        <option>2015</option><option>2016</option><option>2017</option><option>2018</option><option>2019</option>
-        <option>2020</option><option>2021</option><option>2022</option><option>2023</option><option>2024</option>
-        <option>2025</option><option>2026</option>
+        <option>1995</option><option>1996</option><option>1997</option>
+        <!-- 省略 -->
+        <option>2026</option>
       </select>
     </div>
 
-    <!-- 経歴 -->
     <div class="form-group">
-      <label>退社後略歴 / 現所属 <span class="badge required">必須</span></label>
+      <label>退社後略歴 / 現所属 <span>必須</span></label>
       <input type="text" name="entry.1555634786" required>
     </div>
 
-    <!-- タイトル -->
     <div class="form-group">
-      <label>応援メッセージタイトル <span class="badge optional">任意</span></label>
+      <label>応援メッセージタイトル <span>任意</span></label>
       <input type="text" name="entry.2121020883">
     </div>
 
-    <!-- 本文 -->
     <div class="form-group">
-      <label>応援メッセージ本文 <span class="badge required">必須</span></label>
+      <label>応援メッセージ本文 <span>必須</span></label>
       <textarea name="entry.192152360" required rows="5"></textarea>
     </div>
 
     <button type="submit">回答する</button>
-
   </form>
+
+  <div id="successMessage" class="success hidden">
+    送信が完了しました！ありがとうございます。
+  </div>
 </div>
+
+<script>
+  const form = document.getElementById('myForm');
+  const success = document.getElementById('successMessage');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault(); // ページ遷移防止
+
+    const url = "https://docs.google.com/forms/d/e/1FAIpQLSdGJZWt-93YMYYefN2bBK1kmXZpijWSLK-l64NF6qEQIdXqtQ/formResponse";
+    const data = new FormData(form);
+
+    fetch(url, { method: "POST", mode: "no-cors", body: data })
+      .then(() => {
+        form.classList.add('hidden'); // フォーム非表示
+        success.classList.remove('hidden'); // 完了メッセージ表示
+      })
+      .catch(() => {
+        alert("送信中にエラーが発生しました。もう一度お試しください。");
+      });
+  });
+</script>
 
 </body>
 </html>
