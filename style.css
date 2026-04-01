@@ -114,4 +114,12 @@ iframe {
   pointer-events: none;
 }
 
+/* 経歴（略歴） */
+textarea[name="entry.1555634786"] {
+  height: 60px; /* 小さめ、2行くらい */
+}
 
+/* 応援メッセージ本文 */
+textarea[name="entry.192152360"] {
+  height: 200px; /* 大きめ、8行くらい */
+}
