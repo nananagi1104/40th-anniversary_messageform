@@ -5,13 +5,13 @@
   <title>応援メッセージ投稿フォーム</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* 送信完了メッセージ非表示にしておく */
-    #successMessage {
+    .success-message {
       display: none;
       text-align: center;
+      margin-top: 30px;
       font-size: 18px;
       color: #20a4b8;
-      margin-top: 20px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -20,12 +20,7 @@
 <div class="wrapper">
   <h1>応援メッセージ投稿フォーム</h1>
 
-  <!-- hidden iframe -->
-  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
-  <form action="https://docs.google.com/forms/d/e/1FAIpQLSdGJZWt-93YMYYefN2bBK1kmXZpijWSLK-l64NF6qEQIdXqtQ/formResponse"
-        method="POST" target="hidden_iframe" onsubmit="showMessage()">
-
+  <form id="myForm">
     <!-- 氏名 -->
     <div class="form-group">
       <label>氏名 <span class="badge required">必須</span></label>
@@ -40,10 +35,16 @@
 
     <!-- 所属 -->
     <div class="form-group">
-      <label>在籍時所属 <span class="badge required">必須</span></label>
+      <label>所属 <span class="badge required">必須</span></label>
       <div class="radio-box">
-        <label><input type="radio" name="entry.1143568180" value="コンサルティングスタッフ" required> コンサルティングスタッフ</label>
-        <label><input type="radio" name="entry.1143568180" value="サポーティングスタッフ" required> サポーティングスタッフ</label>
+        <label>
+          <input type="radio" name="entry.1143568180" required value="コンサルティングスタッフ" >
+          コンサルティングスタッフ
+        </label>
+        <label>
+          <input type="radio" name="entry.1143568180" required value="サポーティングスタッフ" >
+          サポーティングスタッフ
+        </label>
       </div>
     </div>
 
@@ -81,8 +82,8 @@
 
     <!-- 経歴 -->
     <div class="form-group">
-      <label>退社後略歴 / 現所属 <span class="badge required">必須</span></label>
-      <textarea name="entry.1555634786" required rows="3" placeholder="例：〇〇株式会社 → △△会社"></textarea>
+        <label>退社後略歴 / 現所属 <span class="badge required">必須</span></label>
+        <textarea name="entry.1555634786" required rows="3" ></textarea>
     </div>
 
     <!-- タイトル -->
@@ -94,22 +95,39 @@
     <!-- 本文 -->
     <div class="form-group">
       <label>応援メッセージ本文 <span class="badge required">必須</span></label>
-      <textarea name="entry.192152360" required rows="8"></textarea>
+      <textarea name="entry.192152360" required rows="5"></textarea>
     </div>
 
-    <button type="submit">回答する</button>
+    <button type="submit">投稿する</button>
   </form>
 
-  <div id="successMessage">送信が完了しました！ありがとうございます。</div>
+  <div class="success-message" id="successMessage">
+    送信が完了しました！ありがとうございました。
+  </div>
+
 </div>
 
 <script>
-  function showMessage() {
-    const form = document.getElementById('myForm');
-    const msg = document.getElementById('successMessage');
-    form.style.display = "none";
-    msg.style.display = "block";
-  }
+  const form = document.getElementById('myForm');
+  const success = document.getElementById('successMessage');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault(); // ページ遷移防止
+
+    const url = "https://docs.google.com/forms/d/e/1FAIpQLSdGJZWt-93YMYYefN2bBK1kmXZpijWSLK-l64NF6qEQIdXqtQ/formResponse";
+    const data = new FormData(form);
+
+    fetch(url, {
+      method: "POST",
+      mode: "no-cors", // GoogleフォームはCORS許可してないので no-cors
+      body: data
+    }).then(() => {
+      form.style.display = "none";     // フォーム非表示
+      success.style.display = "block"; // 完了メッセージ表示
+    }).catch(() => {
+      alert("送信中にエラーが発生しました。もう一度お試しください。");
+    });
+  });
 </script>
 
 </body>
