@@ -4,13 +4,28 @@
   <meta charset="UTF-8">
   <title>応援メッセージ投稿フォーム</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* 送信完了メッセージ非表示にしておく */
+    #successMessage {
+      display: none;
+      text-align: center;
+      font-size: 18px;
+      color: #20a4b8;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
 
 <div class="wrapper">
   <h1>応援メッセージ投稿フォーム</h1>
 
-  <form id="myForm">
+  <!-- hidden iframe -->
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+  <form action="https://docs.google.com/forms/d/e/1FAIpQLSdGJZWt-93YMYYefN2bBK1kmXZpijWSLK-l64NF6qEQIdXqtQ/formResponse"
+        method="POST" target="hidden_iframe" onsubmit="showMessage()">
+
     <!-- 氏名 -->
     <div class="form-group">
       <label>氏名 <span class="badge required">必須</span></label>
@@ -23,7 +38,7 @@
       <input type="email" name="entry.8506932" placeholder="mail@example.com" required>
     </div>
 
-    <!-- 在籍時所属 -->
+    <!-- 所属 -->
     <div class="form-group">
       <label>在籍時所属 <span class="badge required">必須</span></label>
       <div class="radio-box">
@@ -67,7 +82,7 @@
     <!-- 経歴 -->
     <div class="form-group">
       <label>退社後略歴 / 現所属 <span class="badge required">必須</span></label>
-      <textarea name="entry.1555634786" required rows="2" ></textarea>
+      <textarea name="entry.1555634786" required rows="3" placeholder="例：〇〇株式会社 → △△会社"></textarea>
     </div>
 
     <!-- タイトル -->
@@ -79,36 +94,22 @@
     <!-- 本文 -->
     <div class="form-group">
       <label>応援メッセージ本文 <span class="badge required">必須</span></label>
-      <textarea name="entry.192152360" required rows=""></textarea>
+      <textarea name="entry.192152360" required rows="8"></textarea>
     </div>
 
-    <button type="submit">投稿する</button>
+    <button type="submit">回答する</button>
   </form>
 
-  </div>
+  <div id="successMessage">送信が完了しました！ありがとうございます。</div>
 </div>
 
 <script>
-  const form = document.getElementById('myForm');
-  const success = document.getElementById('successMessage');
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const url = "https://docs.google.com/forms/d/e/1FAIpQLSdGJZWt-93YMYYefN2bBK1kmXZpijWSLK-l64NF6qEQIdXqtQ/formResponse";
-    const data = new FormData(form);
-
-    fetch(url, {
-      method: "POST",
-      mode: "no-cors",
-      body: data
-    }).then(() => {
-      form.style.display = "none";
-      success.style.display = "block";
-    }).catch(() => {
-      alert("送信中にエラーが発生しました。もう一度お試しください。");
-    });
-  });
+  function showMessage() {
+    const form = document.getElementById('myForm');
+    const msg = document.getElementById('successMessage');
+    form.style.display = "none";
+    msg.style.display = "block";
+  }
 </script>
 
 </body>
